@@ -64,4 +64,9 @@ class ScrapingJob extends Model
     {
         return $this->hasMany(ScrapingJobLog::class);
     }
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(ScrapingJobArticle::class);
+    }
 }

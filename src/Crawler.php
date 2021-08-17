@@ -7,12 +7,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use LarraPress\BlogPoster\Crawler\ArticleAttribute;
 use LarraPress\BlogPoster\Crawler\HtmlEditor;
-use App\Models\Post;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use \Intervention\Image\Facades\Image;
+use LarraPress\BlogPoster\Models\ScrapingJobArticle;
 use LarraPress\BlogPoster\Traits\UsesStorage;
 use Symfony\Component\DomCrawler\Crawler as SymfonyCrawler;
 
@@ -201,8 +201,11 @@ class Crawler
 
             $articleLink = $this->getRealUrl($node->attr('href'));
 
-            if(! $this->testingMode && Post::whereSourceArticleUrl($articleLink)->exists())
+            if(! $this->testingMode
+                && config('larra-press.blog-poster.allow_duplications') !== true
+                && ScrapingJobArticle::whereSourceUrl($articleLink)->exists()) {
                 return null;
+            }
 
             $article = $this->crawlUri($articleLink);
 

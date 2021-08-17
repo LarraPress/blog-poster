@@ -9,14 +9,14 @@ trait UsesStorage
      *
      * @var string $logChannelName
      */
-    protected static string $logChannelName;
+    protected static string $logChannelName = '';
 
     /**
      * The name of the storage disk.
      *
      * @var string $storageDiskName
      */
-    protected static string $storageDiskName;
+    protected static string $storageDiskName = '';
 
     /**
      * Init properties with storage configuration.
