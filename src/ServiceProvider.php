@@ -2,9 +2,11 @@
 
 namespace LarraPress\BlogPoster;
 
+use Illuminate\Support\Facades\App;
 use LarraPress\BlogPoster\Console\Commands\ScrapingJobMakeCommand;
+use \Illuminate\Support\ServiceProvider;
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+class BlogPosterServiceProvider extends ServiceProvider
 {
     const CONFIG_PATH = __DIR__ . '/../config/blog-poster.php';
 
@@ -23,11 +25,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             self::CONFIG_PATH,
             'larra-press.blog-poster'
         );
+
+        App::bind('blog-poster', function()
+        {
+            return new BlogPoster();
+        });
     }
 }

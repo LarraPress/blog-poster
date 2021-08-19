@@ -3,12 +3,17 @@
 namespace LarraPress\BlogPoster\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Symfony\Component\DomCrawler\Crawler as SymfonyCrawler;
 
 /**
  * LarraPress\BlogPoster\Models\ScrapingJob
@@ -16,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property string $source
+ * @property string $icon
  * @property array $config
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -29,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ScrapingJob whereId($value)
  * @method static Builder|ScrapingJob whereName($value)
  * @method static Builder|ScrapingJob whereSource($value)
+ * @method static Builder|ScrapingJob whereIcon($value)
  * @method static Builder|ScrapingJob whereUpdatedAt($value)
  * @mixin Eloquent
  * @property string $identifier_in_list
@@ -53,12 +60,28 @@ class ScrapingJob extends Model
         'category_id',
         'identifier_in_list',
         'daily_limit',
-        'is_draft'
+        'is_draft',
+        'icon',
     ];
 
     protected $casts = [
         'config' => 'array'
     ];
+
+    protected static function boot()
+    {
+        self::created(function (ScrapingJob $job) {
+            $job->setIconUrl();
+        });
+
+        self::updating(function (ScrapingJob $job){
+            if($job->isDirty('source')) {
+                $job->setIconUrl();
+            }
+        });
+
+        parent::boot();
+    }
 
     public function logs(): HasMany
     {
@@ -68,5 +91,30 @@ class ScrapingJob extends Model
     public function articles(): HasMany
     {
         return $this->hasMany(ScrapingJobArticle::class);
+    }
+
+    public function setIconUrl(): void
+    {
+        try {
+            $client = new Client();
+            $web = new SymfonyCrawler($client->get($this->source)->getBody()->getContents());
+            $url = $web->filter('link[rel*="icon"]')->first()->attr('href');
+
+            if((! filter_var($url, FILTER_VALIDATE_URL))) {
+                $parsedUrl = parse_url($this->source);
+                $baseUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'];
+
+                $url = $baseUrl.$url;
+            }
+
+            $fileExists = Str::endsWith(Arr::get(@get_headers($url), 0), '200 OK');
+        }
+        catch (Exception $exception){
+            $fileExists =  false;
+        }
+
+        if($fileExists) {
+            $this->icon = $url;
+        }
     }
 }
