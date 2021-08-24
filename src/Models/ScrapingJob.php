@@ -68,21 +68,6 @@ class ScrapingJob extends Model
         'config' => 'array'
     ];
 
-    protected static function boot()
-    {
-        self::created(function (ScrapingJob $job) {
-            $job->setIconUrl();
-        });
-
-        self::updating(function (ScrapingJob $job){
-            if($job->isDirty('source')) {
-                $job->setIconUrl();
-            }
-        });
-
-        parent::boot();
-    }
-
     public function logs(): HasMany
     {
         return $this->hasMany(ScrapingJobLog::class);
@@ -91,30 +76,5 @@ class ScrapingJob extends Model
     public function articles(): HasMany
     {
         return $this->hasMany(ScrapingJobArticle::class);
-    }
-
-    public function setIconUrl(): void
-    {
-        try {
-            $client = new Client();
-            $web = new SymfonyCrawler($client->get($this->source)->getBody()->getContents());
-            $url = $web->filter('link[rel*="icon"]')->first()->attr('href');
-
-            if((! filter_var($url, FILTER_VALIDATE_URL))) {
-                $parsedUrl = parse_url($this->source);
-                $baseUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'];
-
-                $url = $baseUrl.$url;
-            }
-
-            $fileExists = Str::endsWith(Arr::get(@get_headers($url), 0), '200 OK');
-        }
-        catch (Exception $exception){
-            $fileExists =  false;
-        }
-
-        if($fileExists) {
-            $this->icon = $url;
-        }
     }
 }
