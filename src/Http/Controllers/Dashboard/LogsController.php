@@ -5,6 +5,8 @@ namespace LarraPress\BlogPoster\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use LarraPress\BlogPoster\Models\ScrapingJob;
+use LarraPress\BlogPoster\Models\ScrapingJobLog;
 
 class LogsController extends Controller
 {
@@ -13,8 +15,13 @@ class LogsController extends Controller
     */
     public function dashboard()
     {
-        return view('blog-poster::dashboard')->with([
-            'title' => 'Logs'
+        $logs = ScrapingJobLog::with('job')
+            ->orderBy('id', 'DESC')
+            ->paginate(50);
+
+        return view('blog-poster::logs')->with([
+            'title' => 'Logs',
+            'logs' => $logs
         ]);
     }
 }

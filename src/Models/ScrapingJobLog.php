@@ -48,6 +48,6 @@ class ScrapingJobLog extends Model
 
     public function job(): BelongsTo
     {
-        return $this->belongsTo(ScrapingJob::class);
+        return $this->belongsTo(ScrapingJob::class, 'scraping_job_id', 'id');
     }
 }

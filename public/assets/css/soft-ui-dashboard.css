@@ -24924,4 +24924,11 @@ pre[class*="language-"] {
   }
 }
 
+.log-col {
+  max-width: 400px;
+  height: 200px;
+  display: block;
+  overflow: auto;
+  white-space: normal;
+}
 /*# sourceMappingURL=dashboard-free.css.map */
