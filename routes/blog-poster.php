@@ -14,12 +14,12 @@ Route::group(['prefix' => 'blog-poster', 'as' => 'blog-poster.'], function (){
         Route::post('/', [JobsController::class, 'store'])->name('store');
 
         Route::get('/source_icon', [JobsController::class, 'parseSourceIcon'])->name('source_icon');
+        Route::post('/test', [JobsController::class, 'test'])->name('test');
 
         Route::get('/{id}', [JobsController::class, 'edit'])->name('edit');
         Route::get('/copy/{id}', [JobsController::class, 'copy'])->name('copy');
         Route::post('/{id}', [JobsController::class, 'update'])->name('update');
 
         Route::delete('/{id}', [JobsController::class, 'delete'])->name('delete');
-        Route::post('/test', [JobsController::class, 'test'])->name('test');
     });
 });

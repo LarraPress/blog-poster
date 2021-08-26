@@ -2,9 +2,7 @@
 
 namespace {{ namespace }};
 
-use App\Models\Category;
 use App\Models\Post;
-use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\Models\Tag;
 use Exception;
@@ -88,7 +86,7 @@ class {{ class }} extends BaseScrapingJob
     {
         try {
             foreach ($this->scrapedPosts as $scrapedPost) {
-                $post = Post::create([
+                $post = config('blog-poster.model')::create([
                     'slug' => Str::slug($scrapedPost['title']),
                     'title' => $scrapedPost['title'],
                     'body' => $scrapedPost['body'],
@@ -98,12 +96,17 @@ class {{ class }} extends BaseScrapingJob
                     'source_url' => $scrapedPost['source_base'],
                 ]);
 
-                PostCategory::create([
-                    'post_id' => $post->id,
-                    'category_id' => $this->scrapingJobModel->category_id
-                ]);
+                if(! is_null(config('blog-poster.category'))) {
+                    if(! is_null(config('blog-poster.category_post_relation'))) {
+                        config('blog-poster.category_post_relation')::create([
+                                            'post_id' => $post->id,
+                                            'category_id' => $this->scrapingJobModel->category_id
+                                        ]);
+                    }
 
-                Category::whereId($this->scrapingJobModel->category_id)->increment('posts_count');
+                    config('blog-poster.category')::whereId($this->scrapingJobModel->category_id)->increment('posts_count');
+                }
+
 
                 foreach ($scrapedPost['tags'] ?? [] as $tag) {
                     $tagModel = Tag::firstOrCreate([

@@ -26,7 +26,11 @@
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Icon</th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Source</th>
-                                    <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+
+                                    @if(! is_null(config('blog-poster.category')))
+                                        <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+                                    @endif
+
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Daily Limit</th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Is Draft</th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
@@ -41,7 +45,11 @@
                                         <td><img src="{{ $job->icon }}" width="30" style="border-radius: 100%"></td>
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->source }}</td>
-                                        <td>{{ $job->category_id }}</td>
+
+                                        @if(! is_null(config('blog-poster.category')))
+                                            <td>{{ $job->category_id }}</td>
+                                        @endif
+
                                         <td>{{ $job->daily_limit }}</td>
                                         <td>{{ $job->is_draft }}</td>
                                         <td>{{ $job->created_at }}</td>

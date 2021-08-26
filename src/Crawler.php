@@ -261,7 +261,7 @@ class Crawler
      * @param SymfonyCrawler $web
      * @param ArticleAttribute $articleAttribute
      * @param SymfonyCrawler $element
-     * @return mixed
+     * @return array|string|null
      */
     protected function processWithAttribute(SymfonyCrawler &$web,
                                             ArticleAttribute $articleAttribute,

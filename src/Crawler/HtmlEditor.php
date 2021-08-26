@@ -6,10 +6,14 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class HtmlEditor
 {
-    public static function changeSelectorAttributeValue(string $body,
-                                                        string $selector,
-                                                        string $attribute,
-                                                        string $valueWithWildCard): string
+    /**
+     * @todo finish this method functionality and PHPDOC, NOT USED
+     */
+    public static function changeSelectorAttributeValue(
+        string $body,
+        string $selector,
+        string $attribute,
+        string $valueWithWildCard): string
     {
         $dom = new Crawler($body);
 
@@ -23,10 +27,21 @@ class HtmlEditor
         return $dom->html();
     }
 
-    public static function replaceAttributeValueWithAnotherAttribute(string $body,
-                                                        string $selector,
-                                                        string $attribute,
-                                                        string $attributeToGetValue): string
+    /**
+     * Replace HTML tag attribute value with another one.
+     *
+     * @see ArticleAttribute::$replacingAttributes for more information
+     * @param string $body
+     * @param string $selector
+     * @param string $attribute
+     * @param string $attributeToGetValue
+     * @return string
+     */
+    public static function replaceAttributeValueWithAnotherAttribute(
+        string $body,
+        string $selector,
+        string $attribute,
+        string $attributeToGetValue): string
     {
         $dom = new Crawler($body);
 

@@ -44,15 +44,17 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="job-category">Category</label>
-                                    <select name="category_id" id="job-category" class="form-control">
-                                        <option value="">Select Category</option>
-                                        @foreach($categories as $category)
-                                            <option @if(isset($job) && $category->id === $job->category_id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if(! is_null(config('blog-poster.category')))
+                                    <div class="form-group">
+                                        <label for="job-category">Category</label>
+                                        <select name="category_id" id="job-category" class="form-control">
+                                            <option value="">Select Category</option>
+                                            @foreach($categories as $category)
+                                                <option @if(isset($job) && $category->id === $job->category_id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label for="job-limit">Daily Limit</label>
@@ -103,6 +105,8 @@
             const attr_template = `@include('blog-poster::components.jobs._article_attribute')`;
             const attr_template_ignoring_attrs = `@include('blog-poster::components.jobs._ignoring-attribute')`;
             const attr_template_replacing_attrs = `@include('blog-poster::components.jobs._replace-tag-attribute')`;
+            const preview_template = `@include('blog-poster::components.jobs.preview.preview')`;
+            const preview_attribute_template = `@include('blog-poster::components.jobs.preview._preview_attribute')`;
 
             $(".add-new-attribute").on('click', function (e){
                 e.preventDefault();
@@ -198,24 +202,25 @@
                     let html = '';
 
                     $(".configurator-attribute-name").each(function(){
-                        let atrName = $(this).val()
-                        let atrValue = response[atrName];
-                        let atrType = $(this).closest('.configurator-attribute').find('.configurator-attribute-type').val()
+                        let attrName = $(this).val()
+                        let attrValue = response[attrName];
+                        let attrType = $(this).closest('.configurator-attribute').find('.configurator-attribute-type').val()
 
-                        if(atrType === 'array')
+                        if(attrType === 'array')
                         {
-                            atrValue = atrValue.join('<br>')
+                            attrValue = attrValue.join('<br>')
                         }
-                        else if(atrType === 'url')
+                        else if(attrType === 'url')
                         {
-                            atrValue = "<img src='"+ atrValue +"' width='200px'>"
+                            attrValue = "<img src='"+ attrValue +"' width='200px'>"
                         }
 
-                        html += "<b>"+atrName+"</b>: " + atrValue + "<br>"
+                        html += preview_attribute_template.replace('%attribute_name%', attrName).replace('%attribute_value%', attrValue)
                     });
 
-                    $("#testResult").html(html)
+                    const result = preview_template.replace('%attributes%', html);
 
+                    window.open().document.write(result);
                 });
             })
 
