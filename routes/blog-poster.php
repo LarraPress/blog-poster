@@ -5,7 +5,7 @@ use LarraPress\BlogPoster\Http\Controllers\Dashboard\HomeController;
 use LarraPress\BlogPoster\Http\Controllers\Dashboard\JobsController;
 use LarraPress\BlogPoster\Http\Controllers\Dashboard\LogsController;
 
-Route::group(['prefix' => 'blog-poster', 'as' => 'blog-poster.'], function (){
+Route::group(['prefix' => 'blog-poster', 'as' => 'blog-poster.'], function () {
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('logs', [LogsController::class, 'dashboard'])->name('logs');
 

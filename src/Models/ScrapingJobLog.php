@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * LarraPress\BlogPoster\Models\ScrapingJobLog
+ * LarraPress\BlogPoster\Models\ScrapingJobLog.
  *
  * @property int $id
  * @property int $scraping_job_id
@@ -43,7 +43,7 @@ class ScrapingJobLog extends Model
         'status',
         'source_url',
         'log',
-        'scraped_posts_count'
+        'scraped_posts_count',
     ];
 
     public function job(): BelongsTo

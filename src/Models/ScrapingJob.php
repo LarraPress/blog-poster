@@ -3,20 +3,15 @@
 namespace LarraPress\BlogPoster\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
-use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
-use Symfony\Component\DomCrawler\Crawler as SymfonyCrawler;
 
 /**
- * LarraPress\BlogPoster\Models\ScrapingJob
+ * LarraPress\BlogPoster\Models\ScrapingJob.
  *
  * @property int $id
  * @property string $name
@@ -65,7 +60,7 @@ class ScrapingJob extends Model
     ];
 
     protected $casts = [
-        'config' => 'array'
+        'config' => 'array',
     ];
 
     public function logs(): HasMany

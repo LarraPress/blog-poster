@@ -24,7 +24,7 @@ class JobsController extends Controller
     {
         $returnWith = ['title' => 'New Job'];
 
-        if(! is_null(config('larra-press.blog-poster.category'))) {
+        if (! is_null(config('larra-press.blog-poster.category'))) {
             $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
@@ -41,7 +41,7 @@ class JobsController extends Controller
     {
         $request->merge([
             'is_draft' => $request->input('is_draft') === 'on' ? 1 : 0,
-            'config' => json_decode($request->input('config'))
+            'config' => json_decode($request->input('config')),
         ]);
 
         $job = new ScrapingJob();
@@ -72,11 +72,11 @@ class JobsController extends Controller
                 ->isHtml($configItem['is_html'])
                 ->asThumbnail($configItem['as_thumb']);
 
-            if (trim($configItem['type']) !== "") {
+            if (trim($configItem['type']) !== '') {
                 $articleAttribute->setType(trim($configItem['type']));
             }
 
-            if (trim($configItem['custom_tag']) !== "") {
+            if (trim($configItem['custom_tag']) !== '') {
                 $articleAttribute->setTagAttribute(trim($configItem['custom_tag']));
             }
 
@@ -93,9 +93,9 @@ class JobsController extends Controller
             if (! empty($configItem['replacing_attributes'])) {
                 foreach ($configItem['replacing_attributes'] as $replacingAttribute) {
                     $articleAttribute->setReplacingAttribute(
-                        $replacingAttribute["selector"],
-                        $replacingAttribute["replacing_attribute"],
-                        $replacingAttribute["attribute_to_get_value_from"],
+                        $replacingAttribute['selector'],
+                        $replacingAttribute['replacing_attribute'],
+                        $replacingAttribute['attribute_to_get_value_from'],
                     );
                 }
             }
@@ -118,18 +118,18 @@ class JobsController extends Controller
      *
      * @param mixed $id
      * @return View|Factory
-    */
+     */
     public function copy($id)
     {
         $job = ScrapingJob::findOrFail($id);
 
         $returnWith = [
-            'title' => 'Edit '. $job->name .' Job',
+            'title' => 'Edit '.$job->name.' Job',
             'job' => $job,
             'copying' => true,
         ];
 
-        if(! is_null(config('larra-press.blog-poster.category'))) {
+        if (! is_null(config('larra-press.blog-poster.category'))) {
             $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
@@ -141,17 +141,17 @@ class JobsController extends Controller
     /**
      * @param mixed $id
      * @return View|Factory
-    */
+     */
     public function edit($id)
     {
         $job = ScrapingJob::findOrFail($id);
 
         $returnWith = [
-            'title' => 'Edit '. $job->name .' Job',
+            'title' => 'Edit '.$job->name.' Job',
             'job' => $job,
         ];
 
-        if(! is_null(config('larra-press.blog-poster.category'))) {
+        if (! is_null(config('larra-press.blog-poster.category'))) {
             $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
@@ -168,7 +168,7 @@ class JobsController extends Controller
     {
         $request->merge([
             'is_draft' => $request->input('is_draft') === 'on' ? 1 : 0,
-            'config' => json_decode($request->input('config'))
+            'config' => json_decode($request->input('config')),
         ]);
 
         $job = ScrapingJob::findOrFail($request->route('id'));
@@ -180,7 +180,7 @@ class JobsController extends Controller
 
     /**
      * @param Request $request
-    */
+     */
     public function delete(Request $request): void
     {
         ScrapingJob::whereId($request->route('id'))->delete();
@@ -194,7 +194,7 @@ class JobsController extends Controller
     public function parseSourceIcon(Request $request): JsonResponse
     {
         return response()->json([
-            'url' => Crawler\SourceIconParser::parseIconUrl($request->input('source_url'))
+            'url' => Crawler\SourceIconParser::parseIconUrl($request->input('source_url')),
         ]);
     }
 }

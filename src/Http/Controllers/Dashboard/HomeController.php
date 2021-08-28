@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     /**
      * @return View|Factory
-    */
+     */
     public function dashboard()
     {
         $jobs = ScrapingJob::all();
@@ -19,7 +19,7 @@ class HomeController extends Controller
         return view('blog-poster::dashboard')
             ->with([
                 'title' => 'Dashboard',
-                'jobs' => $jobs
+                'jobs' => $jobs,
             ]);
     }
 }

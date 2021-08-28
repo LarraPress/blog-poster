@@ -23,7 +23,7 @@ class SourceIconParser
      */
     public static function parseIconUrl(string $source_url, string $selector = null, string $attribute = null)
     {
-        if(is_null($selector)) {
+        if (is_null($selector)) {
             $selector = 'link[rel*="icon"]';
             $attribute = 'href';
         }
@@ -33,7 +33,7 @@ class SourceIconParser
             $web = new SymfonyCrawler($client->get($source_url)->getBody()->getContents());
             $url = $web->filter($selector)->first()->attr($attribute);
 
-            if((! filter_var($url, FILTER_VALIDATE_URL))) {
+            if ((! filter_var($url, FILTER_VALIDATE_URL))) {
                 $parsedUrl = parse_url($source_url);
                 $baseUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'];
 
@@ -43,8 +43,7 @@ class SourceIconParser
             $fileExists = Str::endsWith(Arr::get(@get_headers($url), 0), '200 OK');
 
             return $fileExists ? $url : false;
-        }
-        catch (Exception $exception){
+        } catch (Exception $exception) {
             return false;
         }
     }
