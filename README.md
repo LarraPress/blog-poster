@@ -157,6 +157,12 @@ instead of using the issue tracker.
 - [Symfony CSS Selector](https://github.com/symfony/css-selector)
 - [Symfony DOM Crawler](https://github.com/symfony/dom-crawler)
 
+# Versioning
+The version example: 1.0.0
+The package version is divided by 3 parts:
+- Global update
+- Feature
+- Bugfix
 
 [ico-version]: https://img.shields.io/packagist/v/larra-press/blog-poster.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/396071507/shield
