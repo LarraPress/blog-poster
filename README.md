@@ -148,7 +148,7 @@ instead of using the issue tracker.
 
 # Credits
 
-- [Larra Press](https://github.com/larrapress/blog-poster)
+- [Larra Press](https://github.com/larrapress/)
 - [All contributors](https://github.com/larrapress/blog-poster/graphs/contributors)
 
 # Used packages
