@@ -17,7 +17,7 @@ class HtmlEditor
     {
         $dom = new Crawler($body);
 
-        $dom->filter($selector)->each(function (Crawler $node) use ($attribute, $valueWithWildCard){
+        $dom->filter($selector)->each(function (Crawler $node) use ($attribute, $valueWithWildCard) {
             $attrValue = $node->attr($attribute);
             $newValueToSet = str_replace('{*}', $attrValue, $valueWithWildCard);
 
@@ -45,7 +45,7 @@ class HtmlEditor
     {
         $dom = new Crawler($body);
 
-        $dom->filter($selector)->each(function (Crawler $node) use ($attribute, $attributeToGetValue){
+        $dom->filter($selector)->each(function (Crawler $node) use ($attribute, $attributeToGetValue) {
             $newValueToSet = $node->attr($attributeToGetValue);
 
             $node->getNode(0)->setAttribute($attribute, $newValueToSet);

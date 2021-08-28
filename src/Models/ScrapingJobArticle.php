@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\ScrapingJobArticle
+ * App\Models\ScrapingJobArticle.
  *
  * @property int $id
  * @property int $scraping_job_id
@@ -31,7 +31,7 @@ class ScrapingJobArticle extends Model
 
     protected $fillable = [
         'scraping_job_id',
-        'source_url'
+        'source_url',
     ];
 
     public function job(): BelongsTo

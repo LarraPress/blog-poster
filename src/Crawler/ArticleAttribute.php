@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 /**
  * There are some attributes in the articles to scrape, such as title, body, tags and so on.
  * Each element is called here ArticleAttribute.
-*/
+ */
 class ArticleAttribute
 {
     public const TYPE_URL = 'url';
@@ -17,7 +17,7 @@ class ArticleAttribute
      * Attribute CSS selector.
      *
      * @var string
-    */
+     */
     protected string $selector;
 
     /**
@@ -26,7 +26,7 @@ class ArticleAttribute
      * Example: content - get data from content tag attribute of some meta tag.
      *
      * @var null|string
-    */
+     */
     protected ?string $tagAttribute = null;
 
     /**
@@ -34,7 +34,7 @@ class ArticleAttribute
      * Useful if there are ads sections in the article body.
      *
      * @var Collection
-    */
+     */
     protected Collection $ignoringNodes;
 
     /**
@@ -43,8 +43,8 @@ class ArticleAttribute
      * For example, the article body can have <img> tag which contains SRC and DATA-SRC attributes.
      * Since this is a lazy loading, the SRC can contain a default image, but the real image address can be in DATA-SRC.
      *
-     * @var Collection $replacingAttributes
-    */
+     * @var Collection
+     */
     protected Collection $replacingAttributes;
 
     /**
@@ -55,7 +55,7 @@ class ArticleAttribute
      *
      * @see \LarraPress\BlogPoster\Crawler::processWithAttribute
      * @var null|string
-    */
+     */
     protected ?string $type = null;
 
     /**
@@ -66,7 +66,7 @@ class ArticleAttribute
      *
      * @todo Create mapper to use this property in the mapper, but not in the poster job.
      * @var string
-    */
+     */
     protected string $attributeName;
 
     /**
@@ -76,7 +76,7 @@ class ArticleAttribute
      *
      * @see \LarraPress\BlogPoster\Crawler::removeHtmlComments
      * @var bool
-    */
+     */
     protected bool $isHtml = false;
 
     /**
@@ -84,7 +84,7 @@ class ArticleAttribute
      * If yes, it will be downloaded to the storage.
      *
      * @var bool
-    */
+     */
     protected bool $isFile = false;
 
     /**
@@ -92,13 +92,13 @@ class ArticleAttribute
      * If the source provides a big feature image file, it can be scraped also as a thumbnail.
      *
      * @var bool
-    */
+     */
     protected bool $asThumbnail = false;
 
     /**
      * @param string $attributeName
      * @return void
-    */
+     */
     public function __construct(string $attributeName)
     {
         $this->ignoringNodes = new Collection();
@@ -108,18 +108,18 @@ class ArticleAttribute
 
     /**
      * @return array
-    */
+     */
     public static function getTypes(): array
     {
         return [
             self::TYPE_ARRAY,
-            self::TYPE_URL
+            self::TYPE_URL,
         ];
     }
 
     /**
      * @return string
-    */
+     */
     public function getSelector(): string
     {
         return $this->selector;
@@ -128,7 +128,7 @@ class ArticleAttribute
     /**
      * @param string $selector
      * @return ArticleAttribute
-    */
+     */
     public function setSelector(string $selector): self
     {
         $this->selector = $selector;
@@ -206,10 +206,10 @@ class ArticleAttribute
      *
      * @param bool $setNewState
      * @return ArticleAttribute|bool
-    */
+     */
     public function isHtml(bool $setNewState = null)
     {
-        if(! is_null($setNewState)) {
+        if (! is_null($setNewState)) {
             $this->isHtml = $setNewState;
 
             return $this;
@@ -226,7 +226,7 @@ class ArticleAttribute
      */
     public function isFile(bool $setNewState = null)
     {
-        if(! is_null($setNewState)) {
+        if (! is_null($setNewState)) {
             $this->isFile = $setNewState;
 
             return $this;
@@ -243,7 +243,7 @@ class ArticleAttribute
      */
     public function asThumbnail(bool $setNewState = null)
     {
-        if(! is_null($setNewState)) {
+        if (! is_null($setNewState)) {
             $this->asThumbnail = $setNewState;
 
             return $this;
@@ -260,13 +260,13 @@ class ArticleAttribute
      * @param string $replacingAttribute
      * @param string $attributeToGetValueFrom
      * @return ArticleAttribute
-    */
+     */
     public function setReplacingAttribute(string $selector, string $replacingAttribute, string $attributeToGetValueFrom): self
     {
         $this->replacingAttributes->push([
-            "selector" => $selector,
-            "replacing_attribute" => $replacingAttribute,
-            "attribute_to_get_value_from" => $attributeToGetValueFrom,
+            'selector' => $selector,
+            'replacing_attribute' => $replacingAttribute,
+            'attribute_to_get_value_from' => $attributeToGetValueFrom,
         ]);
 
         return $this;
@@ -275,7 +275,7 @@ class ArticleAttribute
     /**
      * @see ArticleAttribute::$replacingAttributes for more information
      * @return Collection
-    */
+     */
     public function getReplacingAttributes(): Collection
     {
         return $this->replacingAttributes;

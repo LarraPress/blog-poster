@@ -19,11 +19,11 @@ return [
 
     // The disk name to store scraped media
     'filesystem' => [
-        'disk' => 'public'
+        'disk' => 'public',
     ],
 
     // The log channel name to use when logging
     'log' => [
-        'channel' => 'scrape'
-    ]
+        'channel' => 'scrape',
+    ],
 ];

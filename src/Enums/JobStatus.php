@@ -1,6 +1,5 @@
 <?php
 
-
 namespace LarraPress\BlogPoster\Enums;
 
 use Spatie\Enum\Laravel\Enum;
@@ -9,7 +8,7 @@ use Spatie\Enum\Laravel\Enum;
  * @method static self processing()
  * @method static self processed()
  * @method static self failed()
-*/
+ */
 final class JobStatus extends Enum
 {
     /**

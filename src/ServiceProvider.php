@@ -7,8 +7,8 @@ use LarraPress\BlogPoster\Console\Commands\ScrapingJobMakeCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    const CONFIG_PATH = __DIR__ . '/../config/blog-poster.php';
-    const PUBLIC_PATH = __DIR__ . '/../public';
+    const CONFIG_PATH = __DIR__.'/../config/blog-poster.php';
+    const PUBLIC_PATH = __DIR__.'/../public';
 
     public function boot()
     {
@@ -22,7 +22,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                ScrapingJobMakeCommand::class
+                ScrapingJobMakeCommand::class,
             ]);
         }
     }
@@ -34,8 +34,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'larra-press.blog-poster'
         );
 
-        App::bind('blog-poster', function()
-        {
+        App::bind('blog-poster', function () {
             return new BlogPoster();
         });
     }
