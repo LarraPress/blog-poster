@@ -163,15 +163,15 @@ abstract class ScrapingJob implements ShouldQueue
                 {
                     foreach ($filesContainer as $file)
                     {
-                        if(Storage::disk(self::$storageDiskName)->exists($file['path']))
+                        if(Storage::disk($this->storageDiskName)->exists($file['path']))
                         {
-                            Storage::disk(self::$storageDiskName)->delete($file['path']);
+                            Storage::disk($this->storageDiskName)->delete($file['path']);
                         }
                     }
                 }
             }
 
-            Log::channel(self::$logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." failed: " . json_encode($exceptionData));
+            Log::channel($this->logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." failed: " . json_encode($exceptionData));
 
             return false;
         }

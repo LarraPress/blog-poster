@@ -27,7 +27,7 @@
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Source</th>
 
-                                    @if(! is_null(config('blog-poster.category')))
+                                    @if(! is_null(config('larra-press.blog-poster.category')))
                                         <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
                                     @endif
 
@@ -46,7 +46,7 @@
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->source }}</td>
 
-                                        @if(! is_null(config('blog-poster.category')))
+                                        @if(! is_null(config('larra-press.blog-poster.category')))
                                             <td>{{ $job->category_id }}</td>
                                         @endif
 

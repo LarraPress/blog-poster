@@ -40,7 +40,7 @@ class {{ class }} extends BaseScrapingJob
      */
     public function handle(): bool
     {
-        Log::channel(self::$logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." started");
+        Log::channel($this->logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." started");
 
         $postsSuccessfullyScraped = $this->scrapePosts();
 
@@ -52,7 +52,7 @@ class {{ class }} extends BaseScrapingJob
             $this->scrapingJobLog->scraped_posts_count = $this->scrapedPosts->count();
             $this->scrapingJobLog->save();
 
-            Log::channel(self::$logChannelName)->info("Scraping for ". $this->scrapingJobModel->name ." finished");
+            Log::channel($this->logChannelName)->info("Scraping for ". $this->scrapingJobModel->name ." finished");
 
             return true;
         } else {
@@ -86,7 +86,7 @@ class {{ class }} extends BaseScrapingJob
     {
         try {
             foreach ($this->scrapedPosts as $scrapedPost) {
-                $post = config('blog-poster.model')::create([
+                $post = config('larra-press.blog-poster.model')::create([
                     'slug' => Str::slug($scrapedPost['title']),
                     'title' => $scrapedPost['title'],
                     'body' => $scrapedPost['body'],
@@ -96,15 +96,15 @@ class {{ class }} extends BaseScrapingJob
                     'source_url' => $scrapedPost['source_base'],
                 ]);
 
-                if(! is_null(config('blog-poster.category'))) {
-                    if(! is_null(config('blog-poster.category_post_relation'))) {
-                        config('blog-poster.category_post_relation')::create([
+                if(! is_null(config('larra-press.blog-poster.category'))) {
+                    if(! is_null(config('larra-press.blog-poster.category_post_relation'))) {
+                        config('larra-press.blog-poster.category_post_relation')::create([
                                             'post_id' => $post->id,
                                             'category_id' => $this->scrapingJobModel->category_id
                                         ]);
                     }
 
-                    config('blog-poster.category')::whereId($this->scrapingJobModel->category_id)->increment('posts_count');
+                    config('larra-press.blog-poster.category')::whereId($this->scrapingJobModel->category_id)->increment('posts_count');
                 }
 
 
@@ -134,7 +134,7 @@ class {{ class }} extends BaseScrapingJob
             $this->scrapingJobLog->log = $exceptionData;
             $this->scrapingJobLog->save();
 
-            Log::channel(self::$logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." failed: " . json_encode($exceptionData));
+            Log::channel($this->logChannelName)->info("Scraping for ".$this->scrapingJobModel->name." failed: " . json_encode($exceptionData));
 
             return false;
         }

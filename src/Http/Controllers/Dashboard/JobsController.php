@@ -24,8 +24,8 @@ class JobsController extends Controller
     {
         $returnWith = ['title' => 'New Job'];
 
-        if(! is_null(config('blog-poster.category'))) {
-            $categories = config('blog-poster.category')::select('id', 'name')->get();
+        if(! is_null(config('larra-press.blog-poster.category'))) {
+            $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
 
@@ -129,8 +129,8 @@ class JobsController extends Controller
             'copying' => true,
         ];
 
-        if(! is_null(config('blog-poster.category'))) {
-            $categories = config('blog-poster.category')::select('id', 'name')->get();
+        if(! is_null(config('larra-press.blog-poster.category'))) {
+            $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
 
@@ -151,8 +151,8 @@ class JobsController extends Controller
             'job' => $job,
         ];
 
-        if(! is_null(config('blog-poster.category'))) {
-            $categories = config('blog-poster.category')::select('id', 'name')->get();
+        if(! is_null(config('larra-press.blog-poster.category'))) {
+            $categories = config('larra-press.blog-poster.category')::select('id', 'name')->get();
             $returnWith['categories'] = $categories;
         }
 

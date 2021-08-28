@@ -372,18 +372,18 @@ class Crawler
                 $constraint->aspectRatio();
             });
 
-            if(Storage::disk(self::$storageDiskName)->put($name, $img->response()->content()))
+            if(Storage::disk($this->storageDiskName)->put($name, $img->response()->content()))
             {
                 return [
-                    'url' => Storage::disk(self::$storageDiskName)->url($name),
+                    'url' => Storage::disk($this->storageDiskName)->url($name),
                     'path' => $name
                 ];
             }
         }
-        else if(Storage::disk(self::$storageDiskName)->put($name, $contents))
+        else if(Storage::disk($this->storageDiskName)->put($name, $contents))
         {
             return [
-                'url' => Storage::disk(self::$storageDiskName)->url($name),
+                'url' => Storage::disk($this->storageDiskName)->url($name),
                 'path' => $name
             ];
         }

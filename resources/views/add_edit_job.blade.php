@@ -44,12 +44,12 @@
                             </div>
 
                             <div class="col-md-6">
-                                @if(! is_null(config('blog-poster.category')))
+                                @if(! is_null(config('larra-press.blog-poster.category')))
                                     <div class="form-group">
                                         <label for="job-category">Category</label>
                                         <select name="category_id" id="job-category" class="form-control">
                                             <option value="">Select Category</option>
-                                            @foreach($categories as $category)
+                                            @foreach($categories ?? [] as $category)
                                                 <option @if(isset($job) && $category->id === $job->category_id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>

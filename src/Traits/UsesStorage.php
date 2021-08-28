@@ -9,14 +9,14 @@ trait UsesStorage
      *
      * @var string $logChannelName
      */
-    protected static string $logChannelName = '';
+    protected string $logChannelName = '';
 
     /**
      * The name of the storage disk.
      *
      * @var string $storageDiskName
      */
-    protected static string $storageDiskName = '';
+    protected string $storageDiskName = '';
 
     /**
      * Init properties with storage configuration.
@@ -25,7 +25,7 @@ trait UsesStorage
     */
     protected function initStorageConnection(): void
     {
-        self::$logChannelName  = config('larra-press.blog-poster.log.channel');
-        self::$storageDiskName = config('larra-press.blog-poster.filesystem.disk');
+        $this->logChannelName  = config('larra-press.blog-poster.log.channel');
+        $this->storageDiskName = config('larra-press.blog-poster.filesystem.disk');
     }
 }
