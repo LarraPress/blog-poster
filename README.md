@@ -16,11 +16,11 @@
 # About Package
 This package was developed by [Alexey Khachatryan](https://github.com/alkhachatryan) for personal usage, but then author decided to make it public package for world usage and created [LarraPress Project](https://github.com/LarraPress) 
 This project will help developers to create powerful blogs and use third party  package for better blog owning.
-Then meaning of this package is to scrape articles from third party sources and post on your blog. There are many things to add and fix, because this is in Alpha version. Feel free to report bugs, ask questions and create PRs.
+The meaning of this package is to scrape articles from third party sources and post on your blog. There are many things to add and fix, because this is in Alpha version. Feel free to report bugs, ask questions and create PRs.
 
 So far this package has the following features:
 - Scrape posts from third party resources
-- Downlaod selected media files
+- Download selected media files
 - Remove useless elements from scraped articles
 - Work with lazy-loaded media files by replacing HTML tag attributes values
 - Detect duplications
@@ -79,7 +79,7 @@ If you don't want to use the queues you can override parent ScrapingJob class: \
 
 # Setting Up your first scraping job
 ScrapingJob classes handle ScrapingJobModel with all configs. To create your scraping job, go to dashboard.
-The URL of the dashboard depends on how and where you put its routes. If you not sure where are they kidly run this command:
+The URL of the dashboard depends on how and where you put its routes. If you not sure where are they kindly run this command:
 ```bash
 php artisan route:list # on UNIX machines you can filter by adding "| grep blog-poster" without quotation marks
 ```
